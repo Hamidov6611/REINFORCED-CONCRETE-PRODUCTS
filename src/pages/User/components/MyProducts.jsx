@@ -32,7 +32,7 @@ const MyProducts = () => {
   }, []);
   useEffect(() => {
     AOS.init({
-      duration: 2000, // Animation duration in milliseconds
+      duration: 1000, // Animation duration in milliseconds
       offset: 100, // Change when the element triggers the animation (0 = at the top of the window)
     });
   }, []);

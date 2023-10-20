@@ -9,7 +9,7 @@
   font-size: 17px;
   color: #ff5c17;
   border: 1px solid #ff5c17;
-  transition: all 250ms;
+  transition: all 500ms;
   overflow: hidden;
 }
 
@@ -24,7 +24,7 @@
   background-color: #ff5c17;
   z-index: -1;
 
-  transition: all 250ms;
+  transition: all 500ms;
 }
 
 .my-button2:hover {

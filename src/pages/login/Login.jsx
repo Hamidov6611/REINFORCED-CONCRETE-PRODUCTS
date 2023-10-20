@@ -4,16 +4,11 @@ import { TEInput, TERipple } from "tw-elements-react";
 
 export const Login = () => {
   const [postData, setPostData] = useState({ username: "", password: "" });
-  const navigate = useNavigate();
   const handleOnchange = (e) => {
     const { name, value } = e.target;
     setPostData({ ...postData, [name]: value });
-    navigate('/')
   };
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    localStorage.setItem("x-admin", JSON.stringify(postData));
-  };
+
   return (
     <section className="h-screen">
       <div className="h-full">
@@ -30,7 +25,7 @@ export const Login = () => {
           {/* <!-- Right column container --> */}
           <div className="mb-12 md:mb-0 md:w-8/12 lg:w-5/12 xl:w-5/12">
             <form
-              onSubmit={handleSubmit}
+              // onSubmit={handleSubmit}
               className="flex flex-col justify-center items-center"
             >
               <p className="font-inter font-medium text-[20px]">Login</p>

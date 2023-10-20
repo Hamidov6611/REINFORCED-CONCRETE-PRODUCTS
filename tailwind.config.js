@@ -20,7 +20,8 @@ module.exports = {
         modal: "rgba(0,0,0, .7)",
         navcolor: "#313131",
         mainColor: "#FF5C17",
-        lightGray:"rgba(49, 49, 49, .7)"
+        lightGray:"rgba(49, 49, 49, .7)",
+        modal2:" rgba(12, 12, 12, .5)"
       },
       fontFamily: {
         inter: ["Inter", "sans-serif"],

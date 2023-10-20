@@ -13,7 +13,7 @@ const AdminLayout = ({ children, title, desc }) => {
     setAdmin(JSON.parse(admin));
   }, []);
   const navigate = useNavigate();
-  return admin?.username?.length > 0 ? (
+  return (
     <>
       <Helmet>
         <meta charSet="utf-8" />
@@ -29,9 +29,7 @@ const AdminLayout = ({ children, title, desc }) => {
         <div className="w-[100%] md:w-[85%]  bg-[#1a222c]">{children}</div>
       </main>
     </>
-  ) : (
-    navigate("/login")
-  );
+  )
 };
 
 AdminLayout.defaultProps = {

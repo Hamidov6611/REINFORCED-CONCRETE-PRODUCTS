@@ -16,15 +16,14 @@ const AddCategory = ({ setIsOpen, getData }) => {
     volume: Number,
     context: "",
   });
-
-  
   
   const [cat, setCat] = useState([]);
   const [name, setName] = useState("");
   const [id_category, setIdCategory] = useState(Number);
   const [file, setFile] = useState(null);
+  const [subData, setSubData] = useState([])
   const closeHandler = () => setIsOpen(false);
-  
+
   const getCategoryData = async () => {
     try {
       const { data } = await axios.get(
@@ -41,43 +40,64 @@ const AddCategory = ({ setIsOpen, getData }) => {
     setPostData({ ...postData, [name]: value });
   };
 
+  const getSubCategory = async () => {
+    try {
+      const { data } = await axios.get(
+        `${url}/a_admin_panel/api/category_list_views/`
+      );
+      setSubData(data?.data?.results)
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
   useEffect(() => {
+    getSubCategory();
     getCategoryData();
   }, []);
+
   const addProduct = async (e) => {
-    e.preventDefault()
+    e.preventDefault();
     try {
       const data = new FormData();
       for (let i = 0; i < Object.values(file).length; i++) {
         data.append("img", Object.values(file)[i]);
         console.log(Object.values(file)[i]);
       }
-      data.append("name", postData.name)
-      data.append("price", postData.price)
-      data.append("length_l", postData.length_l)
-      data.append("height_h", postData.height_h)
-      data.append("width_b", postData.width_b)
-      data.append("scales", postData.scales)
-      data.append("volume", postData.volume)
-      data.append("context", postData.context)
+      data.append("id_catgeory", id_category)
+      data.append("name", postData.name);
+      data.append("price", postData.price);
+      data.append("length_l", postData.length_l);
+      data.append("height_h", postData.height_h);
+      data.append("width_b", postData.width_b);
+      data.append("scales", postData.scales);
+      data.append("volume", postData.volume);
+      data.append("context", postData.context);
       let config = {
         headers: {
           "Content-Type": "multipart/form-data",
         },
       };
-      const res = await axios.post(`${url}/a_admin_panel/api/product_list_views/`, data, config)
-      console.log(res)
-      getData()
-      setIsOpen(false)
+      const res = await axios.post(
+        `${url}/a_admin_panel/api/product_list_views/`,
+        data,
+        config
+      );
+      console.log(res);
+      getData();
+      setIsOpen(false);
     } catch (error) {
-      console.log(error)
+      console.log(error);
     }
-  }
+  };
+
+  console.log(id_category)
+
   return (
     <div className="fixed top-0 left-0 w-full h-[100vh] bg-modal flex items-center justify-center z-50">
       <form
         onSubmit={addProduct}
-        className="rounded-md w-[90%] md:w-[50%] p-4 lg:w-[30%] h-[550px] overflow-y-auto bg-white"
+        className="rounded-md w-[90%] md:w-[50%] p-4 lg:w-[30%] h-[620px] overflow-y-auto bg-white"
       >
         <div className="w-full flex items-center justify-between text-[#343434] font-semibold text-[16px]">
           <p>Добавить продукт</p>
@@ -107,17 +127,17 @@ const AddCategory = ({ setIsOpen, getData }) => {
             />
             <span>Выберите файл</span>
           </label>
-          {/* <select
+          <select
             onChange={(e) => setIdCategory(e.target.value)}
             className="outline-none bg-transparent border w-full py-2 border-[#343434] rounded-md text-[#343434] px-3 tetx-[15px]"
           >
             <option className="text-slate-300">Категория</option>
-            {cat?.map((c, i) => (
+            {subData?.map((c, i) => (
               <option value={c?.id} key={c?.id}>
                 {c?.name}
               </option>
             ))} 
-          </select> */}
+          </select>
           <div className="flex md:flex-row flex-col gap-x-4 gap-y-4 text-[#343434]">
             <input
               value={postData.name}
@@ -173,13 +193,13 @@ const AddCategory = ({ setIsOpen, getData }) => {
             />
           </div>
           <input
-              value={postData.height_h}
-              name="height_h"
-              onChange={handleOnchange}
-              type="text"
-              className="outline-none border w-full py-2 border-[#343434] rounded-md text-[#343434] px-3 tetx-[15px]"
-              placeholder="Объем"
-            />
+            value={postData.height_h}
+            name="height_h"
+            onChange={handleOnchange}
+            type="text"
+            className="outline-none border w-full py-2 border-[#343434] rounded-md text-[#343434] px-3 tetx-[15px]"
+            placeholder="Объем"
+          />
           <CKEditor
             editor={ClassicEditor}
             data={postData.context}

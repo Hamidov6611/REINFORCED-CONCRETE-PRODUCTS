@@ -1,18 +1,23 @@
 import { createSlice } from '@reduxjs/toolkit'
 
-const initialState = {
-  product: []
-}
 
 export const productSlice = createSlice({
   name: 'counter',
-  initialState,
+  initialState : {
+    basket: []
+  },
   reducers: {
    addProduct: (state, action) => {
-    state.product.push(action.payload)
+    state.basket.push(action.payload)
+    localStorage.setItem('my-basket', JSON.stringify(state.basket))
    }
   },
 })
+
+const savedCart = localStorage.getItem('my-basket');
+const initialState = {
+  basket: savedCart ? JSON.parse(savedCart) : [],
+};
 
 export const { addProduct } = productSlice.actions
 

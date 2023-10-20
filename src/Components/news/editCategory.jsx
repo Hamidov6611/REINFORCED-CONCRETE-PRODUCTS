@@ -17,7 +17,7 @@ const EditCategory = ({ setIsOpen, getData, id }) => {
       data.append("img", file);
       data.append("title", name);
       data.append("content", text);
-      await axios.post(`${url}/a_admin_panel/api/news_list_views/`, data);
+      await axios.put(`${url}/a_admin_panel/api/news_crud_views/${id}/`, data);
       getData();
       setIsOpen(false);
     } catch (error) {
@@ -50,7 +50,7 @@ const EditCategory = ({ setIsOpen, getData, id }) => {
         className="rounded-md w-[90%] md:w-[50%] p-4 lg:w-[30%] h-[340px] bg-white"
       >
         <div className="w-full flex items-center justify-between text-[#343434] font-semibold text-[16px]">
-          <p>Добавить новости</p>
+          <p>Изменить новости</p>
           <svg
             onClick={closeHandler}
             className="cursor-pointer"
@@ -99,7 +99,7 @@ const EditCategory = ({ setIsOpen, getData, id }) => {
           type="submit"
           className="w-full bg-[#343434] text-white font-semibold mt-4 py-2 rounded-lg"
         >
-          Добавить
+          Изменить
         </button>
       </form>
     </div>

@@ -4,11 +4,13 @@ import axios from "axios";
 import { url } from "../../service/url";
 import { useParams } from "react-router-dom";
 import EditImage from "./editImage";
+import RemoveImage from "./deleteImg";
 
 const EditProductImg = () => {
   const [images, setImages] = useState([]);
-  const [isEdit, setIsEdit] = useState(false)
-  const [imgId, setImgId] = useState(Number)
+  const [isEdit, setIsEdit] = useState(false);
+  const [imgId, setImgId] = useState(Number);
+  const [isRemove, setIsRemove] = useState(false);
   const { id } = useParams();
   const getData = async () => {
     try {
@@ -24,10 +26,14 @@ const EditProductImg = () => {
     getData();
   }, [id]);
 
-  const editHandler = id => {
-    setImgId(id)
-    setIsEdit(true)
-  }
+  const editHandler = (id) => {
+    setImgId(id);
+    setIsEdit(true);
+  };
+  const removeHandler = (id) => {
+    setImgId(id);
+    setIsRemove(true);
+  };
 
   return (
     <AdminLayout>
@@ -36,14 +42,20 @@ const EditProductImg = () => {
           <p className="text-white font-semibold text-[20px]">
             Изменить изображение продукта
           </p>
-            {isEdit && <EditImage id={imgId} setIsEdit={setIsEdit} getData={getData}/>}
+          {isEdit && (
+            <EditImage id={imgId} setIsEdit={setIsEdit} getData={getData} />
+          )}
+          {isRemove && (
+            <RemoveImage setIsRemove={setIsRemove} id={imgId} getData={getData} />
+          )}
           <div className="my-6 grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-x-4 gap-y-4">
             {images?.map((c, index) => (
               <div key={index} className="h-[300px] relative">
                 <div className="absolute right-[2%] top-[2%] flex flex-col gap-y-2">
-                  <div 
-                  onClick={() => editHandler(c?.id)}
-                  className="p-2 bg-yellow-400 rounded-lg cursor-pointer">
+                  <div
+                    onClick={() => editHandler(c?.id)}
+                    className="p-2 bg-yellow-400 rounded-lg cursor-pointer"
+                  >
                     <svg
                       xmlns="http://www.w3.org/2000/svg"
                       height="1em"
@@ -53,7 +65,9 @@ const EditProductImg = () => {
                       <path d="M441 58.9L453.1 71c9.4 9.4 9.4 24.6 0 33.9L424 134.1 377.9 88 407 58.9c9.4-9.4 24.6-9.4 33.9 0zM209.8 256.2L344 121.9 390.1 168 255.8 302.2c-2.9 2.9-6.5 5-10.4 6.1l-58.5 16.7 16.7-58.5c1.1-3.9 3.2-7.5 6.1-10.4zM373.1 25L175.8 222.2c-8.7 8.7-15 19.4-18.3 31.1l-28.6 100c-2.4 8.4-.1 17.4 6.1 23.6s15.2 8.5 23.6 6.1l100-28.6c11.8-3.4 22.5-9.7 31.1-18.3L487 138.9c28.1-28.1 28.1-73.7 0-101.8L474.9 25C446.8-3.1 401.2-3.1 373.1 25zM88 64C39.4 64 0 103.4 0 152V424c0 48.6 39.4 88 88 88H360c48.6 0 88-39.4 88-88V312c0-13.3-10.7-24-24-24s-24 10.7-24 24V424c0 22.1-17.9 40-40 40H88c-22.1 0-40-17.9-40-40V152c0-22.1 17.9-40 40-40H200c13.3 0 24-10.7 24-24s-10.7-24-24-24H88z" />
                     </svg>
                   </div>
-                  <div className="p-2 bg-red-500 rounded-lg cursor-pointer">
+                  <div 
+                  onClick={() => removeHandler(c?.id)}
+                  className="p-2 bg-red-500 rounded-lg cursor-pointer">
                     <svg
                       class="fill-[#343434]"
                       width="18"
