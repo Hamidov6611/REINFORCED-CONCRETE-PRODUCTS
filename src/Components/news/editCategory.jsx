@@ -21,7 +21,7 @@ const EditCategory = ({ setIsOpen, getData, id }) => {
       getData();
       setIsOpen(false);
     } catch (error) {
-      console.log(file)
+      console.log(file);
       console.log(error);
     }
   };
