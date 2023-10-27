@@ -1,13 +1,28 @@
+import axios from "axios";
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { TEInput, TERipple } from "tw-elements-react";
+import { url } from "../../service/url";
+import Cookies from "js-cookie";
 
 export const Login = () => {
+  const navigate = useNavigate()
   const [postData, setPostData] = useState({ username: "", password: "" });
   const handleOnchange = (e) => {
     const { name, value } = e.target;
     setPostData({ ...postData, [name]: value });
   };
+
+  const handleSubmit = async (e) => {
+    e.preventDefault()
+    try {
+      const {data} = await axios.post(`${url}/api/token/`, postData)
+      Cookies.set("token", data?.access)
+      Cookies.set("admin", JSON.stringify(postData))
+      navigate('/category')
+    } catch (error) {
+      console.log(error)
+    }
+  }
 
   return (
     <section className="h-screen">
@@ -25,7 +40,7 @@ export const Login = () => {
           {/* <!-- Right column container --> */}
           <div className="mb-12 md:mb-0 md:w-8/12 lg:w-5/12 xl:w-5/12">
             <form
-              // onSubmit={handleSubmit}
+              onSubmit={handleSubmit}
               className="flex flex-col justify-center items-center"
             >
               <p className="font-inter font-medium text-[20px]">Login</p>
