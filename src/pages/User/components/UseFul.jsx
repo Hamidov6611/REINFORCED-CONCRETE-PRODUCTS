@@ -52,7 +52,7 @@ const UseFul = () => {
       </div>
 
       <div className="my-[30px] grid grid-cols-1 md:grid-cols-2 gap-x-4 gap-y-4 lg:grid-cols-3">
-        {data?.map((c, i) => (
+        {data?.map((c, i) => i < 3 && (
           <div
             key={i}
             className="relative"
