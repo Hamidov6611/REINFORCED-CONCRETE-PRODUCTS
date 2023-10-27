@@ -3,17 +3,18 @@ import { Helmet } from "react-helmet";
 import Sidebar from "../Aside";
 import Navbar from "../Navbar";
 import { useNavigate } from "react-router-dom";
+import Cookies from "js-cookie";
 
 const AdminLayout = ({ children, title, desc }) => {
   const [admin, setAdmin] = useState(
-    JSON.parse(localStorage.getItem("x-admin") | null)
+    (Cookies.get("token") | null)
   );
   useEffect(() => {
-    let admin = localStorage.getItem("x-admin");
-    setAdmin(JSON.parse(admin));
+    let admin = Cookies.get("token");
+    setAdmin((admin));
   }, []);
   const navigate = useNavigate();
-  return (
+  return admin?.length > 0 ? (
     <>
       <Helmet>
         <meta charSet="utf-8" />
@@ -29,7 +30,7 @@ const AdminLayout = ({ children, title, desc }) => {
         <div className="w-[100%] md:w-[85%]  bg-[#1a222c]">{children}</div>
       </main>
     </>
-  )
+  ) : navigate('/login')
 };
 
 AdminLayout.defaultProps = {
