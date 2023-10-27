@@ -10,7 +10,6 @@ const NewsAndUseful = () => {
       <div className=" mt-[50px] sm:mt-[100px] gap-y-4 flex flex-col lg:mb-[150px] mb-[50px] sm:mb-[100px] ">
         <div className="relative flex w-full flex-col lg:flex-row">
           <div className="flex flex-col w-[92%] mm:w-[88%] mx-auto">
-
             <div className="flex gap-3 mb-6 items-center">
               <div className="w-[8px] h-[43px] bg-mainColor " />
               <p className="text-[#313131] text-[24px] md:text-[32px] lg:text-[40px] font-semibold">
