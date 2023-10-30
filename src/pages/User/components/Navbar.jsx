@@ -39,7 +39,7 @@ const Navbar = () => {
           </Link>
           <div className="flex gap-3 items-center">
             <img src="/Vector (3).svg" alt="" />
-            <Link className="text-white font-montserrat leading-normal text-[18px] md:text-[20px]">
+            <Link to={"tel: +79999999999"} className="text-white font-montserrat leading-normal text-[18px] md:text-[20px]">
               +7(999) 999-99-99
             </Link>
           </div>
@@ -107,7 +107,10 @@ const Navbar = () => {
               <div className="relative">
                 <img src="/Vector (2).svg" alt="" />
                 <div className="absolute  right-[-9px] top-[-12px] bg-[#FF0000] flex items-center justify-center text-white tetx-[13px] font-montserrat font-medium rounded-full w-[20px] h-[20px]">
-                  <p>{productCount?.length}</p>
+                  <p>
+                    {/* {productCount?.length} */}
+                    2
+                    </p>
                 </div>
               </div>
             )}

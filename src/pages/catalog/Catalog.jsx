@@ -97,7 +97,7 @@ const Catalog = () => {
         </div>
       </div>
 
-      <div className="w-[88%] flex justify-between  mx-auto  mb-6 ">
+      <div className="w-[95%] flex justify-between  mx-auto  mb-6 ">
         <div
           onClick={() => setIsCat(true)}
           className="p-3 w-[176px] md:hidden flex cursor-pointer items-center shadow-md rounded-lg justify-between"

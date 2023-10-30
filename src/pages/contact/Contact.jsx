@@ -1,9 +1,36 @@
-import React from "react";
+import React, { useState } from "react";
 import UserLayout from "../User/layout/UserLayout";
 import MyButton from "../User/components/MyButton";
 import HeroNews from "../User/components/HeroNews";
+import axios from "axios";
+import { url } from "../../service/url";
 
 const Contact = () => {
+  const [alert, setAlert] = useState(false)
+  const [postData, setPostData] = useState({
+    full_name: "",
+    phone: "",
+    content: "",
+  });
+
+  const InputChange = (e) => {
+    const { name, value } = e.target;
+    setPostData({ ...postData, [name]: value });
+  };
+
+  const submitHandler = async (e) => {
+    e.preventDefault();
+    try {
+      const { data } = await axios.post(
+        `${url}/b_sayt/api/forma_sayts_views/`,
+        postData
+      );
+      console.log(data);
+      setAlert(true)
+    } catch (error) {
+      console.log(error);
+    }
+  };
   return (
     <UserLayout title={"Контакты"}>
       <div className=" mt-[50px] sm:mt-[100px] gap-y-4 flex flex-col lg:mb-[150px] mb-[50px] sm:mb-[100px] ">
@@ -56,8 +83,55 @@ const Contact = () => {
                   </p>
                 </div>
               </div>
-              {/*  RIGHT */}
-              <div className="flex w-full flex-col gap-y-4 shadow-md border rounded-[2px] px-6 md:px-12 py-4">
+              {alert && (
+                <div
+                id="alert-3"
+                class="flex items-center p-4 fixed top-[20px] z-50 right-[20px] mb-4 text-green-800 rounded-lg bg-green-50 dark:bg-gray-800 dark:text-green-400"
+                role="alert"
+              >
+                <svg
+                  class="flex-shrink-0 w-4 h-4"
+                  aria-hidden="true"
+                  xmlns="http://www.w3.org/2000/svg"
+                  fill="currentColor"
+                  viewBox="0 0 20 20"
+                >
+                  <path d="M10 .5a9.5 9.5 0 1 0 9.5 9.5A9.51 9.51 0 0 0 10 .5ZM9.5 4a1.5 1.5 0 1 1 0 3 1.5 1.5 0 0 1 0-3ZM12 15H8a1 1 0 0 1 0-2h1v-3H8a1 1 0 0 1 0-2h2a1 1 0 0 1 1 1v4h1a1 1 0 0 1 0 2Z" />
+                </svg>
+                <span class="sr-only">Info</span>
+                <div class="ml-3 text-sm font-medium">
+                  Ваша заявка отправлена
+                </div>
+                <button
+                onClick={() => setAlert(false)}
+                  type="button"
+                  class="ml-auto -mx-1.5 -my-1.5 bg-green-50 text-green-500 rounded-lg focus:ring-2 focus:ring-green-400 p-1.5 hover:bg-green-200 inline-flex items-center justify-center h-8 w-8 dark:bg-gray-800 dark:text-green-400 dark:hover:bg-gray-700"
+                  data-dismiss-target="#alert-3"
+                  aria-label="Close"
+                >
+                  <span class="sr-only">Close</span>
+                  <svg
+                    class="w-3 h-3"
+                    aria-hidden="true"
+                    xmlns="http://www.w3.org/2000/svg"
+                    fill="none"
+                    viewBox="0 0 14 14"
+                  >
+                    <path
+                      stroke="currentColor"
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                      stroke-width="2"
+                      d="m1 1 6 6m0 0 6 6M7 7l6-6M7 7l-6 6"
+                    />
+                  </svg>
+                </button>
+              </div>
+              )}
+              <form
+                onSubmit={submitHandler}
+                className="flex w-full flex-col gap-y-4 shadow-md border rounded-[2px] px-6 md:px-12 py-4"
+              >
                 <div className="flex gap-x-4 items-center  px-4 py-2 w-full">
                   <p className="text-[19px] md:text-[22px] lg:text-[33px] text-[#000] font-semibold font-montserrat">
                     Оставьте сообщение
@@ -74,9 +148,13 @@ const Contact = () => {
                       />
                     </div>
                     <input
+                      value={postData.full_name}
+                      name="full_name"
+                      onChange={InputChange}
                       type="text"
                       className=" outline-none py-2 px-12 text-navcolor bg-transparent font-normal font-montserrat text-[17px] md:text-[18px] border-b border-b-slate-300 w-full"
                       placeholder="Введите ваше имя"
+                      required
                     />
                   </div>
                   <div className="flex items-center">
@@ -88,9 +166,13 @@ const Contact = () => {
                       />
                     </div>
                     <input
+                      value={postData.phone}
+                      name="phone"
+                      onChange={InputChange}
                       type="text"
                       className=" outline-none py-2 px-12 text-navcolor bg-transparent font-normal font-montserrat text-[17px] md:text-[18px] border-b border-b-slate-300 w-full"
                       placeholder="Номер телефона"
+                      required
                     />
                   </div>
                   <div className="flex items-center">
@@ -102,23 +184,29 @@ const Contact = () => {
                       />
                     </div>
                     <input
+                      name="content"
+                      value={postData.content}
+                      onChange={InputChange}
                       type="text"
                       className=" outline-none py-2 px-12 text-navcolor bg-transparent font-normal font-montserrat text-[17px] md:text-[18px] border-b border-b-slate-300 w-full"
                       placeholder="Введите ваше сообщение"
+                      required
                     />
                   </div>
                 </div>
                 <div className="md:flex hidden justify-center items-center my-6">
                   <MyButton
+                    submit={true}
                     title={"Оставить заявку"}
                     class1={"px-8 lg:px-12"}
                   />
                 </div>
                 <MyButton
-                    title={"Оставить заявку"}
-                    class1={"px-8 lg:px-12 md:hidden"}
-                  />
-              </div>
+                  submit={true}
+                  title={"Оставить заявку"}
+                  class1={"px-8 lg:px-12 md:hidden"}
+                />
+              </form>
             </div>
           </div>
         </div>

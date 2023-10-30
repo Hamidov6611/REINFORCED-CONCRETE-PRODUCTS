@@ -1,5 +1,7 @@
+import MyWork from "./pages/MyWork/MyWork";
 import { Basket, Catalog, CatalogDetail, Category, Contact, EditProductImg, Main, NewsAndUseful, NewsComp, Onas, Product, SubCategory, WeNews } from "./pages/User";
 import { Login } from "./pages/login/Login";
+import Work from "./pages/work/work";
 
 export const routes = [
   { id: 1, path: "/", element: <Main /> },
@@ -16,4 +18,6 @@ export const routes = [
   { id: 12, path: "/sub-category", element: <SubCategory /> },
   { id: 13, path: "/news", element: <NewsComp /> },
   { id: 14, path: "/edit-image/:id", element: <EditProductImg /> },
+  { id: 15, path: '/work-cat', element: <Work />},
+  { id: 16, path: '/work', element: <MyWork />}
 ];

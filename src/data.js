@@ -20,7 +20,7 @@ export const navData = [
 ];
 
 export const completed = [
-  { id: 1, title: "Все работы", visible: true },
+  { id: 'all', title: "Все работы", visible: true },
   { id: 2, title: "Энергетическое Строительство", visible: false },
   { id: 3, title: "Промышленное Строительство", visible: false },
   { id: 4, title: "Инженерное Строительство", visible: false },
